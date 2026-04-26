@@ -7,6 +7,8 @@
   --felt: #0d3d2e;
   --felt-edge: #06261c;
   --card-bg: #f7f4ec;
+  /* Dark suits on light card faces (do not use --ink, which is for UI on dark bg) */
+  --suit-black: #0f1419;
   --ink: #e8eaed;
   --muted: #9aa0a6;
   --red: #c62828;
@@ -279,15 +281,132 @@ code {
   line-height: 1.45;
 }
 
+.ev-panel {
+  margin: 0.75rem 0 0;
+  padding: 0.65rem 0.75rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ev-title {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.ev-note {
+  margin: 0 0 0.5rem;
+}
+
+.ev-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.ev-table th,
+.ev-table td {
+  text-align: left;
+  padding: 0.3rem 0.4rem 0.3rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ev-table th {
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.ev-best {
+  margin: 0.5rem 0 0;
+  font-size: 0.85rem;
+}
+
 .explain-block {
   margin-top: 0.5rem;
 }
 
-.explain-text {
+.explain-md {
   font-size: 0.88rem;
-  line-height: 1.45;
+  line-height: 1.5;
   margin: 0.65rem 0 0;
-  white-space: pre-wrap;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.explain-md :first-child {
+  margin-top: 0;
+}
+
+.explain-md :last-child {
+  margin-bottom: 0;
+}
+
+.explain-md p {
+  margin: 0.5rem 0;
+}
+
+.explain-md ul,
+.explain-md ol {
+  margin: 0.45rem 0;
+  padding-left: 1.25rem;
+}
+
+.explain-md li {
+  margin: 0.2rem 0;
+}
+
+.explain-md h1,
+.explain-md h2,
+.explain-md h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0.65rem 0 0.35rem;
+  color: var(--ink);
+}
+
+.explain-md strong {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.explain-md table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin: 0.55rem 0;
+}
+
+.explain-md th,
+.explain-md td {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.35rem 0.5rem;
+  text-align: left;
+}
+
+.explain-md th {
+  background: rgba(0, 0, 0, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.explain-md code {
+  font-size: 0.88em;
+}
+
+.explain-md pre {
+  margin: 0.5rem 0;
+  padding: 0.5rem 0.65rem;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 6px;
+  overflow-x: auto;
+  font-size: 0.8rem;
+}
+
+.explain-md pre code {
+  background: none;
+  padding: 0;
 }
 
 .err {

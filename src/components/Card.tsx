@@ -3,8 +3,8 @@ import type { Card as CardT } from '../game/types';
 const SUIT_COLOR: Record<CardT['suit'], string> = {
   hearts: 'var(--red)',
   diamonds: 'var(--red)',
-  clubs: 'var(--ink)',
-  spades: 'var(--ink)',
+  clubs: 'var(--suit-black)',
+  spades: 'var(--suit-black)',
 };
 
 const SUIT_SYM: Record<CardT['suit'], string> = {

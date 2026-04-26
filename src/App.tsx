@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { BlackjackEngine } from './game/engine';
 import { DEFAULT_RULES } from './game/types';
-import type { GameSnapshot, PlayerAction } from './game/types';
+import type { GameSnapshot, PlayerAction, PlayerHandState } from './game/types';
+import type { MonteCarloEvResult } from './ev/monteCarloEv';
 import { recommendedAction, matchesStrategy } from './strategy/basicStrategy';
 import { explainDecision } from './llm/explainDecision';
 import { Table } from './components/Table';
@@ -13,6 +14,8 @@ interface LastSpot {
   rules: GameSnapshot['rules'];
   dealerUp: GameSnapshot['dealerCards'][0];
   playerCards: GameSnapshot['playerHands'][0]['cards'];
+  playerHands: PlayerHandState[];
+  activeHandIndex: number;
   chosen: PlayerAction;
   recommended: PlayerAction | null;
   legal: PlayerAction[];
@@ -37,12 +40,14 @@ export default function App() {
   const [explainLoading, setExplainLoading] = useState(false);
   const [explainError, setExplainError] = useState<string | null>(null);
   const [explainText, setExplainText] = useState<string | null>(null);
+  const [explainEv, setExplainEv] = useState<MonteCarloEvResult | null>(null);
 
   const dealNew = useCallback(() => {
     setFeedback(null);
     setLastSpot(null);
     setExplainError(null);
     setExplainText(null);
+    setExplainEv(null);
     setSnapshot(engineRef.current!.dealInitial());
   }, []);
 
@@ -67,6 +72,11 @@ export default function App() {
           rules: prev.rules,
           dealerUp: prev.dealerCards[0],
           playerCards: [...hand.cards],
+          playerHands: prev.playerHands.map((h) => ({
+            ...h,
+            cards: [...h.cards],
+          })),
+          activeHandIndex: prev.activeHandIndex,
           chosen: action,
           recommended: best,
           legal: [...legal],
@@ -89,17 +99,21 @@ export default function App() {
     if (!lastSpot) return;
     setExplainError(null);
     setExplainText(null);
+    setExplainEv(null);
     setExplainLoading(true);
     try {
-      const text = await explainDecision({
+      const { text, ev } = await explainDecision({
         rules: lastSpot.rules,
         dealerUp: lastSpot.dealerUp,
         playerCards: lastSpot.playerCards,
+        playerHands: lastSpot.playerHands,
+        activeHandIndex: lastSpot.activeHandIndex,
         chosen: lastSpot.chosen,
         recommended: lastSpot.recommended,
         legalActions: lastSpot.legal,
       });
       setExplainText(text);
+      setExplainEv(ev);
     } catch (e) {
       setExplainError(
         e instanceof Error
@@ -160,6 +174,7 @@ export default function App() {
           explainLoading={explainLoading}
           explainError={explainError}
           explainText={explainText}
+          explainEv={explainEv}
           onExplain={onExplain}
           explainDisabled={!lastSpot}
         />
