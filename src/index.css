@@ -1,0 +1,297 @@
+:root {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--ink);
+  background: #0f1419;
+  --felt: #0d3d2e;
+  --felt-edge: #06261c;
+  --card-bg: #f7f4ec;
+  --ink: #e8eaed;
+  --muted: #9aa0a6;
+  --red: #c62828;
+  --good: #7cb342;
+  --bad: #ff8a65;
+  --btn: #1e3a2f;
+  --btn-hover: #2a5243;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+code {
+  font-size: 0.85em;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 2rem;
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.top h1 {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 840px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.main-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.felt {
+  background: linear-gradient(160deg, var(--felt) 0%, var(--felt-edge) 100%);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.35);
+}
+
+.hand-block h3 {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  min-height: 5.5rem;
+}
+
+.card {
+  width: 3.4rem;
+  height: 4.8rem;
+  background: var(--card-bg);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.card-rank {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.card-suit {
+  font-size: 1.25rem;
+  line-height: 1;
+  margin-top: 0.15rem;
+}
+
+.card-hidden {
+  background: linear-gradient(135deg, #1a237e 0%, #311b92 100%);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.card-back {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.total {
+  margin: 0.4rem 0 0;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.player-hands {
+  margin-top: 1.25rem;
+}
+
+.hand-block.player {
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.65rem;
+  border: 1px solid transparent;
+}
+
+.hand-block.player.active {
+  border-color: rgba(255, 213, 79, 0.45);
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.hand-block.player.doubled .total::after {
+  content: '';
+}
+
+.result-banner {
+  margin: 0;
+  padding: 0.65rem 1rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.action-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.btn {
+  font: inherit;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--btn);
+  color: var(--ink);
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--btn-hover);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn.primary {
+  background: #2e5c45;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: #3a7558;
+}
+
+.btn.secondary {
+  background: #243040;
+  width: 100%;
+}
+
+.btn.tiny {
+  font-size: 0.8rem;
+  padding: 0.35rem 0.65rem;
+}
+
+.action-btn {
+  min-width: 5.5rem;
+}
+
+.next {
+  align-self: flex-start;
+}
+
+.coach {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.coach h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.rules-blurb {
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+  line-height: 1.4;
+}
+
+.fb {
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.fb.ok {
+  background: rgba(124, 179, 66, 0.15);
+  border: 1px solid rgba(124, 179, 66, 0.35);
+}
+
+.fb.bad {
+  background: rgba(255, 138, 101, 0.12);
+  border: 1px solid rgba(255, 138, 101, 0.35);
+}
+
+.fb-verdict {
+  margin: 0.35rem 0 0;
+  font-weight: 600;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.muted.small {
+  font-size: 0.72rem;
+  margin-top: 0.75rem;
+  line-height: 1.45;
+}
+
+.explain-block {
+  margin-top: 0.5rem;
+}
+
+.explain-text {
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0.65rem 0 0;
+  white-space: pre-wrap;
+}
+
+.err {
+  color: var(--bad);
+  font-size: 0.85rem;
+  margin: 0.5rem 0 0;
+}
